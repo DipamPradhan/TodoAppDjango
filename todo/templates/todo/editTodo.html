@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind CSS Example</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      .line-through {
+        text-decoration: line-through;
+        text-decoration-thickness: 0.15rem;
+      }
+      .rotate {
+        transform: rotate(180deg);
+      }
+
+      .panel {
+        display: none;
+        position: absolute;
+        z-index: 1;
+      }
+
+      .panel.active {
+        display: block;
+      }
+      .logout {
+        position: absolute;
+        top: 0;
+        right: 50px;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body class="bg-purple-700 pt-8 pl-40 pr-40">
+    <div class="bg-purple-800 p-4 mt-10">
+      <h3 class="text-white">**Update the task and priority**</h3>
+      <form method="POST">
+        {%csrf_token%}
+        <div class="flex justify-center mt-10">
+          <input
+            class="p-2 rounded-l-lg border-t mr-0 border-b border-l text-gray-800 bg-white w-full max-w-xl font-bold"
+            type="text"
+            placeholder="Add your todo"
+            name="title"
+            value="{{obj.title}}"
+          />
+          <div class="mr-4">
+            <select
+              id="priority"
+              name="priority"
+              class="p-3 w-30 bg-gradient-to-r from-red-600 to-red-500 text-white font-bold text-lg outline-none"
+            >
+              <option class="text-black font-bold" value="0">Priority</option>
+              <option class="text-black font-bold" value="0">Low</option>
+              <option class="text-black font-bold" value="1">Mid</option>
+              <option class="text-black font-bold" value="2">High</option>
+            </select>
+          </div>
+          <button
+            class="submit-button px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold rounded-l-full rounded-r-full shadow-lg transform transition-transform duration-300 hover:scale-105"
+            type="
+          submit"
+          >
+            Update Task
+          </button>
+        </div>
+      </form>
+
+      <div class="container mx-auto p-4">
+        <div class="shadow-md rounded-lg overflow-hidden mb-6">
+          {% comment %}
+          <div class="flex bg-purple-500 justify-between text-white">
+            <div class="p-2 w-2/5 font-bold">Task</div>
+            <div class="p-2 w-1/6 font-bold">Priority</div>
+            <div class="p-2 w-1/6 font-bold">Updated at</div>
+            <div class="p-2 w-1/6 font-bold">Action</div>
+          </div>
+          {% endcomment %}
+        </div>
+        {%for todo in res%}
+        <div class="shadow-md rounded-lg overflow-hidden mb-6">
+          < class="bg-white flex justify-between mt-2 text-item">
+          <div class="p-2 w-2/5 font-semibold task-text" id="taskText">
+            {{todo.title}}
+          </div>
+          <div class="p-2 w-1/6">{{todo.priority}}</div>
+          <div class="p-2 w-1/6">
+            {{ todo.updatedAt|date:"D, d M Y H:i:s" }}
+          </div>
+          <div class="p-2 w-1/6">
+            <a href="">
+              <i class="fa-solid fa-pen-to-square text-xl ml-4"></i>
+            </a>
+            <a href="/deleteTodo/{{todo.srno}}">
+              <i class="fa-solid fa-trash text-red-500 text-xl"> </i>
+            </a>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+  </body>
+</html>
