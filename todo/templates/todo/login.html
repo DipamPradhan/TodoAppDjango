@@ -13,9 +13,23 @@
     <div
       class="rounded-lg shadow-2xl shadow-black w-full max-w-sm mb-10 bg-purple-800 p-10"
     >
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %} {% if 'error' in message.tags %}
+        <li class="{{ message.tags }}">
+          {% endif %}
+          <p
+            class="block text-red-500 text-sm flex items-center justify-center font-bold"
+          >
+            **{{ message }}**
+          </p>
+        </li>
+      </ul>
+      {% endfor %} {% endif %}
       <h1 class="text-3xl font-bold mb-4 text-white">Login</h1>
       <form method="POST">
         {%csrf_token%}
+
         <div class="mb-2">
           <label class="block text-white text-sm font-bold mb-2" for="username"
             >Username</label
@@ -26,6 +40,7 @@
             type="text"
             name="username"
             placeholder="Username"
+            required
           />
         </div>
         <div class="mb-2">
@@ -38,11 +53,12 @@
             type="password"
             name="password"
             placeholder="*********"
+            required
           />
         </div>
         <div class="flex items-center justify-between">
           <button
-            class="submit bg-purple-400 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
+            class="submit bg-purple-400 hover:bg-purple-600 hover:text-white text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
             type="submit"
           >
             Log In
@@ -56,7 +72,7 @@
       <div class="flex items-center justify-between">
         <a
           href="{% url 'todo:register' %}"
-          class="text-sm text-center font-bold mt-6 text-white bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
+          class="text-sm text-center font-bold mt-6 text-white bg-purple-600 hover:bg-purple-400 hover:text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
           >Sign Up</a
         >
       </div>

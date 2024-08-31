@@ -15,7 +15,20 @@
     >
       <h1 class="text-3xl font-bold mb-4 text-white">Sign Up</h1>
       <form method="POST">
-        {%csrf_token%}
+        {%csrf_token%} {% if messages %} {% for message in messages %}
+        <ul>
+          {% if message.tags %}
+          <li class="{{ message.tags }}">
+            {% endif %}
+            <p
+              class="block text-red-500 flex items-center justify-center font-bold"
+            >
+              **{{ message }}**
+            </p>
+          </li>
+        </ul>
+
+        {% endfor %} {%endif%}
         <div class="mb-2">
           <label class="block text-white text-sm font-bold mb-2" for="username"
             >Username</label
@@ -52,6 +65,7 @@
             type="password"
             name="password1"
             placeholder="*********"
+            required
           />
         </div>
         <div class="mb-2">
@@ -64,11 +78,13 @@
             type="password"
             name="password2"
             placeholder="*********"
+            required
           />
         </div>
+
         <div class="flex items-center justify-between">
           <button
-            class="submit bg-purple-400 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
+            class="submit bg-purple-400 text-black hover:bg-purple-600 hover:text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
             type="submit"
           >
             Sign Up
@@ -81,7 +97,7 @@
         <div class="flex items-center justify-between">
           <a
             href="{% url 'todo:login' %}"
-            class="text-sm text-center font-bold mt-6 text-white bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
+            class="text-sm text-center font-bold mt-6 text-white bg-purple-600 hover:text-b lack hover:bg-purple-400 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
             >Log in</a
           >
         </div>

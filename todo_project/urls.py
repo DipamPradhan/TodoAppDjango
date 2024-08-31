@@ -27,4 +27,6 @@ urlpatterns = [
     path("", include("todo.urls")),
     path("", views.home, name="home"),
     path("login/", views.login, name="login"),
+    path("register/", views.register, name="register"),
+    path("todopage/", views.todopage, name="todopage"),
 ]
